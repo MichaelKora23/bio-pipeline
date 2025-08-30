@@ -1,12 +1,16 @@
 tasks:
-  - name: Setup Environment
+  - name: Setup & Initialize
+    before: |
+      # Download and install Miniconda
+      wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+      bash miniconda.sh -b -p $HOME/miniconda
+      source $HOME/miniconda/bin/activate
+      # Initialize Conda for the shell
+      conda init bash
     init: |
+      # Use Mamba to create the environment and install tools
       conda install -n base -c conda-forge mamba -y
       mamba create -n ngs -c conda-forge -c bioconda python=3.9 sra-tools snippy iqtree -y
     command: |
+      # Activate the environment in all new terminals
       echo "conda activate ngs" >> ~/.bashrc
-      source ~/.bashrc
-
-vscode:
-  extensions:
-    - ms-python.python
