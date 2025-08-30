@@ -1,0 +1,12 @@
+tasks:
+  - name: Setup Environment
+    init: |
+      conda install -n base -c conda-forge mamba -y
+      mamba create -n ngs -c conda-forge -c bioconda python=3.9 sra-tools snippy iqtree -y
+    command: |
+      echo "conda activate ngs" >> ~/.bashrc
+      source ~/.bashrc
+
+vscode:
+  extensions:
+    - ms-python.python
